@@ -1,0 +1,23 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "main": "src/index.ts",
+  "scripts": {
+    "start": "ts-node src/index.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@types/node": "^8.0.29",
+    "ts-node": "3.3.0",
+    "typescript": "3.3.3333"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.3",
+    "pg": "^8.7.3",
+    "typeorm": "^0.2.45"
+  }
+}
