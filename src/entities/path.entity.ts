@@ -9,10 +9,14 @@ export class Path
     @PrimaryGeneratedColumn("uuid")
     id: string;
 
-    @Column({
-        nullable: false,
+    @Column()
+    name: string;
+
+    @OneToOne(() => StartCoordinateEntity, {
+        eager: true,
     })
-    start: string;
+    @JoinColumn()
+    start: StartCoordinateEntity;
 
     @Column({
         nullable: false,

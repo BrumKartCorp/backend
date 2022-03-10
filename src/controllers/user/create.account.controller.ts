@@ -5,7 +5,7 @@ import {Account} from "../../entities/account.entity";
 
 export async function createAccountController(request: Request, response: Response)
 {
-    const mail = request.body.mail.trim();
+    const mail = request.body.mail;
     const password = request.body.password;
 
     if (isNullOrUndefined(mail) || isNullOrUndefined(password))

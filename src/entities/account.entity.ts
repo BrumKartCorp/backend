@@ -1,7 +1,6 @@
 import {
     Entity,
-    PrimaryGeneratedColumn,
-    Column,
+    Column, PrimaryGeneratedColumn,
 } from "typeorm";
 
 @Entity()
@@ -10,18 +9,13 @@ export class Account
     @PrimaryGeneratedColumn("uuid")
     id: string;
 
-    @Column({
-        nullable: false,
-    })
+    @Column()
     mail: string;
 
-    @Column({
-        nullable: false,
-    })
+    @Column()
     password: string;
 
     @Column({
-        nullable: false,
         default: 0,
     })
     score: number;
