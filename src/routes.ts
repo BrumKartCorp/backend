@@ -12,7 +12,7 @@ export const routes = [
     { path: "/account/create",     method: "post",   action: createAccountController },
     { path: "/account/get",        method: "get",    action: getAccountController },
     { path: "/account/get/:id",    method: "get",    action: getAccountController },
-    { path: "/account/mail",        method: "get",    action: getAccountMailController },
+    { path: "/account/get/mail/:mail",        method: "get",    action: getAccountMailController },
     { path: "/account/delete/:id", method: "delete", action: deleteAccountController },
 
     // Path routes

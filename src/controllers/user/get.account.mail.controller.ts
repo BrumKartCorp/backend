@@ -4,7 +4,6 @@ import {Account} from "../../entities/account.entity";
 import {isNullOrUndefined} from "util";
 
 export async function getAccountMailController(request: Request, response: Response){
-
     const mail = request.params.mail;
 
     const accountRepo = getManager().getRepository(Account);
