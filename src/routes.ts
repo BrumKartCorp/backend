@@ -1,6 +1,11 @@
-import {getUser} from "./controllers/user/getUser";
+import {createAccountController} from "./controllers/user/create.account.controller";
+import {getAccountController} from "./controllers/user/get.account.controller";
 
 export const routes = [
-    { path: "/user/get", method: "get", action: getUser },
-    { path: "/user/get/:id", method: "get", action: getUser },
+
+    // Account routes
+    { path: "/account/create",  method: "post", action: createAccountController },
+    { path: "/account/get",     method: "get",  action: getAccountController },
+    { path: "/account/get/:id", method: "get",  action: getAccountController },
+
 ];
