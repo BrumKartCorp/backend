@@ -13,7 +13,6 @@ export async function createAccountController(request: Request, response: Respon
         response.status(400).end();
         return;
     }
-
     const userRepo = getManager().getRepository(Account);
 
     await userRepo.save(

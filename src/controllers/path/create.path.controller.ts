@@ -2,6 +2,7 @@ import {Request, Response} from "express";
 import {isNullOrUndefined} from "util";
 import {getManager} from "typeorm";
 import {Path} from "../../entities/path.entity";
+import {CheckpointCoordinate} from "../../entities/checkpointcoordinate.entity";
 
 export async function createPathController(request: Request, response: Response)
 {
@@ -38,6 +39,7 @@ export async function createPathController(request: Request, response: Response)
     });
 
     const pathRepo = getManager().getRepository(Path);
+    const coordinateRepo = getManager().getRepository(CheckpointCoordinate);
 
     await pathRepo.save(
         await pathRepo.create({

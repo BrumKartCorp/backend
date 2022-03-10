@@ -18,9 +18,13 @@ export class Path
     @JoinColumn()
     start: StartCoordinateEntity;
 
-    @Column({
-        nullable: false,
+    @OneToOne(() => EndCoordinateEntity, {
+        eager: true,
     })
-    end: string;
+    @JoinColumn()
+    end: EndCoordinateEntity;
 
+
+    @OneToMany(() => Checkpoint, checkpoint => checkpoint.path)
+    checkpoints: Checkpoint[];
 }
