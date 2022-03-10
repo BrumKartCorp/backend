@@ -1,16 +1,10 @@
-import {Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn} from "typeorm";
-import {Path} from "./path.entity";
+import {Column, Entity, PrimaryGeneratedColumn} from "typeorm";
 
 @Entity()
-export class EndCoordinateEntity
+export class EndCoordinate
 {
     @PrimaryGeneratedColumn("uuid")
     id: string;
-
-    @OneToOne(() => Path, {
-    })
-    @JoinColumn()
-    end: Path;
 
     @Column()
     latitude: string;

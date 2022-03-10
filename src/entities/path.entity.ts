@@ -1,7 +1,14 @@
 import {
     Entity,
-    Column, PrimaryGeneratedColumn
+    Column,
+    PrimaryGeneratedColumn,
+    OneToOne,
+    JoinColumn,
+    OneToMany
 } from "typeorm";
+import {StartCoordinate} from "./startcoodinate.entity";
+import {EndCoordinate} from "./endcoodinate.entity";
+import {Checkpoint} from "./checkpoint";
 
 @Entity()
 export class Path
@@ -12,18 +19,17 @@ export class Path
     @Column()
     name: string;
 
-    @OneToOne(() => StartCoordinateEntity, {
+    @OneToOne(() => StartCoordinate, {
         eager: true,
     })
     @JoinColumn()
-    start: StartCoordinateEntity;
+    start: StartCoordinate;
 
-    @OneToOne(() => EndCoordinateEntity, {
+    @OneToOne(() => EndCoordinate, {
         eager: true,
     })
     @JoinColumn()
-    end: EndCoordinateEntity;
-
+    end: EndCoordinate;
 
     @OneToMany(() => Checkpoint, checkpoint => checkpoint.path)
     checkpoints: Checkpoint[];
