@@ -2,7 +2,7 @@
    "type": "postgres",
    "host": "srv01.lphn.fr",
    "port": 8000,
-   "database": "brumkart",
+   "database": "brumkart_test",
    "username": "esgi",
    "password": "jh5!!cJ4SWzEyZ",
    "synchronize": true,
