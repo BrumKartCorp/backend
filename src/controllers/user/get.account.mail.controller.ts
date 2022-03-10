@@ -5,7 +5,7 @@ import {isNullOrUndefined} from "util";
 
 export async function getAccountMailController(request: Request, response: Response){
 
-    const mail = request.body.mail;
+    const mail = request.params.mail;
 
     const accountRepo = getManager().getRepository(Account);
 
