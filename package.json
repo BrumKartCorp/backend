@@ -17,6 +17,7 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.17.3",
+    "nodemon": "^2.0.15",
     "pg": "^8.7.3",
     "typeorm": "^0.2.45",
     "uuid": "^8.3.2"
