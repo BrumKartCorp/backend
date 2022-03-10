@@ -1,14 +1,14 @@
 import {Request, Response} from "express";
 import {getManager} from "typeorm";
 import {isNullOrUndefined} from "util";
-import {v4 as uuid} from 'uuid';
 import {Account} from "../../entities/account.entity";
 
 export async function createAccountController(request: Request, response: Response)
 {
-    const name = request.body.name;
+    const mail = request.body.mail.trim();
+    const password = request.body.password;
 
-    if (isNullOrUndefined(name))
+    if (isNullOrUndefined(mail) || isNullOrUndefined(password))
     {
         response.status(400).end();
         return;
@@ -18,8 +18,8 @@ export async function createAccountController(request: Request, response: Respon
 
     await userRepo.save(
         await userRepo.create({
-            id: uuid(),
-            name: name,
+            mail: mail,
+            password: password,
         })
     );
 
