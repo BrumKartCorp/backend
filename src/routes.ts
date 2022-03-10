@@ -4,6 +4,7 @@ import {createPathController} from "./controllers/path/create.path.controller";
 import {getPathController} from "./controllers/path/get.path.controller";
 import {deleteAccountController} from "./controllers/user/delete.account.controller";
 import {deletePathController} from "./controllers/path/delete.path.controller";
+import {getAccountMailController} from "./controllers/user/get.account.mail.controller";
 
 export const routes = [
 
@@ -11,6 +12,7 @@ export const routes = [
     { path: "/account/create",     method: "post",   action: createAccountController },
     { path: "/account/get",        method: "get",    action: getAccountController },
     { path: "/account/get/:id",    method: "get",    action: getAccountController },
+    { path: "/account/get/:mail",  method: "get",    action: getAccountMailController },
     { path: "/account/delete/:id", method: "delete", action: deleteAccountController },
 
     // Path routes
