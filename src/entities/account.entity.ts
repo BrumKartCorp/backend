@@ -1,21 +1,28 @@
 import {
     Entity,
     PrimaryColumn,
-    Column,
+    Column, PrimaryGeneratedColumn,
 } from "typeorm";
 
 @Entity()
 export class Account
 {
-    @PrimaryColumn({
-        unique: true,
-        nullable: false,
-    })
+    @PrimaryGeneratedColumn("uuid")
     id: string;
 
     @Column({
         nullable: false,
-        default: "",
     })
-    name: string;
+    mail: string;
+
+    @Column({
+        nullable: false,
+    })
+    password: string;
+
+    @Column({
+        nullable: false,
+        default: 0,
+    })
+    score: number;
 }
