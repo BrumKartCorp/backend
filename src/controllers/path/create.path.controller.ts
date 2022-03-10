@@ -5,9 +5,18 @@ import {Path} from "../../entities/path.entity";
 import {StartCoordinate} from "../../entities/startcoodinate.entity";
 import {EndCoordinate} from "../../entities/endcoodinate.entity";
 import LatLng = google.maps.LatLng;
+const NodeGeocoder = require('node-geocoder');
 
 export async function createPathController(request: Request, response: Response)
 {
+    const options = {
+
+        provider: 'google',
+        apiKey: 'AIzaSyDKjhRwkC0zTWqN7ILl2w3y_ULU2AaM8JI',
+        formatter: null
+    };
+
+
     const name = request.body.name;
     const start = request.body.start;
     const end = request.body.end;
@@ -19,7 +28,15 @@ export async function createPathController(request: Request, response: Response)
         return;
     }
 
-    const geocoder = new google.maps.Geocoder();
+
+    const geocoder = NodeGeocoder(options);
+
+    const res = await geocoder.geocode({
+        address: 'ESGI',
+        country: 'France',
+        zipcode: '75012'
+    });
+
 
     let startCoordinates: LatLng;
     await geocoder.geocode( { 'address': start }, function(results, status) {

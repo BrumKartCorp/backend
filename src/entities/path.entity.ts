@@ -1,10 +1,6 @@
 import {
     Entity,
-    Column,
-    PrimaryGeneratedColumn,
-    OneToOne,
-    JoinColumn,
-    OneToMany
+    Column, PrimaryGeneratedColumn, OneToOne, JoinColumn, OneToMany
 } from "typeorm";
 import {StartCoordinate} from "./startcoodinate.entity";
 import {EndCoordinate} from "./endcoodinate.entity";
