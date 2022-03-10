@@ -3,7 +3,7 @@ import {getManager} from "typeorm";
 import {Path} from "../../entities/path.entity";
 import {isNullOrUndefined} from "util";
 
-export async function getPathController(request: Request, respone: Response){
+export async function getPathController(request: Request, response: Response){
 
     const id = request.params.id;
 
@@ -13,8 +13,8 @@ export async function getPathController(request: Request, respone: Response){
     {
         const paths = await pathRepo.find();
 
-        respone.send(paths);
-        respone.status(200).end();
+        response.send(paths);
+        response.status(200).end();
         return;
     }
 
@@ -22,10 +22,10 @@ export async function getPathController(request: Request, respone: Response){
 
     if (isNullOrUndefined(path))
     {
-        respone.status(400).end();
+        response.status(400).end();
         return;
     }
 
-    respone.send(path);
-    respone.status(200).end();
+    response.send(path);
+    response.status(200).end();
 }

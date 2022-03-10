@@ -1,7 +1,8 @@
 import {
     Entity,
-    Column, PrimaryGeneratedColumn,
+    Column, PrimaryGeneratedColumn, OneToMany,
 } from "typeorm";
+import {Gift} from "./gift.entity";
 
 @Entity()
 export class Account
@@ -19,4 +20,12 @@ export class Account
         default: 0,
     })
     score: number;
+
+    @Column({
+        default: 0,
+    })
+    coins: number;
+
+    @OneToMany(() => Gift, gift => gift.accounts)
+    gifts: Gift[];
 }

@@ -9,11 +9,11 @@ import {getAccountMailController} from "./controllers/user/get.account.mail.cont
 export const routes = [
 
     // Account routes
-    { path: "/account/create",     method: "post",   action: createAccountController },
-    { path: "/account/get",        method: "get",    action: getAccountController },
-    { path: "/account/get/:id",    method: "get",    action: getAccountController },
-    { path: "/account/get/mail/:mail",        method: "get",    action: getAccountMailController },
-    { path: "/account/delete/:id", method: "delete", action: deleteAccountController },
+    { path: "/account/create",         method: "post",   action: createAccountController },
+    { path: "/account/get",            method: "get",    action: getAccountController },
+    { path: "/account/get/:id",        method: "get",    action: getAccountController },
+    { path: "/account/get/mail/:mail", method: "get",    action: getAccountMailController },
+    { path: "/account/delete/:id",     method: "delete", action: deleteAccountController },
 
     // Path routes
     { path: "/path/create",     method: "post",   action: createPathController },
