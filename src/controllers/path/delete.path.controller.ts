@@ -13,7 +13,7 @@ export async function deletePathController(request: Request, response: Response)
         return;
     }
 
-    await getManager().getRepository(Path).delete(id);
+    await getManager().getRepository(Path).softDelete(id);
 
     response.status(200).end();
 }

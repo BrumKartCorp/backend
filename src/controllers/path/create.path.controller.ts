@@ -4,19 +4,17 @@ import {getManager} from "typeorm";
 import {Path} from "../../entities/path.entity";
 import {StartCoordinate} from "../../entities/startcoodinate.entity";
 import {EndCoordinate} from "../../entities/endcoodinate.entity";
-import LatLng = google.maps.LatLng;
+import {Checkpoint} from "../../entities/checkpoint";
 const NodeGeocoder = require('node-geocoder');
+
+const geocoder = NodeGeocoder({
+    provider: 'google',
+    apiKey: 'AIzaSyDKjhRwkC0zTWqN7ILl2w3y_ULU2AaM8JI',
+    formatter: null,
+});
 
 export async function createPathController(request: Request, response: Response)
 {
-    const options = {
-
-        provider: 'google',
-        apiKey: 'AIzaSyDKjhRwkC0zTWqN7ILl2w3y_ULU2AaM8JI',
-        formatter: null
-    };
-
-
     const name = request.body.name;
     const start = request.body.start;
     const end = request.body.end;
@@ -28,36 +26,14 @@ export async function createPathController(request: Request, response: Response)
         return;
     }
 
-
-    const geocoder = NodeGeocoder(options);
-
-    const res = await geocoder.geocode({
-        address: 'ESGI',
+    const geoStart = await geocoder.geocode({
+        address: start,
         country: 'France',
-        zipcode: '75012'
     });
 
-
-    let startCoordinates: LatLng;
-    await geocoder.geocode( { 'address': start }, function(results, status) {
-        if (status == google.maps.GeocoderStatus.OK) {
-            startCoordinates = results[0].geometry.location;
-        } else {
-            console.log("API Google niké pour l'adresse " + start);
-            response.status(400).end();
-            return;
-        }
-    });
-
-    let endCoordinates: LatLng;
-    await geocoder.geocode( { 'address': end }, function(results, status) {
-        if (status == google.maps.GeocoderStatus.OK) {
-            endCoordinates = results[0].geometry.location;
-        } else {
-            console.log("API Google niké pour l'adresse " + end);
-            response.status(400).end();
-            return;
-        }
+    const geoEnd = await geocoder.geocode({
+        address: end,
+        country: 'France',
     });
 
     const pathRepo = getManager().getRepository(Path);
@@ -66,15 +42,15 @@ export async function createPathController(request: Request, response: Response)
 
     const startCoordinateSaved = await startCoordinateRepo.save(
         await startCoordinateRepo.create({
-            latitude: startCoordinates.lat.toString(),
-            longitude: startCoordinates.lng.toString(),
+            latitude: geoStart[0].latitude,
+            longitude: geoStart[0].longitude,
         })
     );
 
     const endCoordinateSaved = await endCoordinateRepo.save(
         await endCoordinateRepo.create({
-            latitude: endCoordinates.lat.toString(),
-            longitude: endCoordinates.lng.toString(),
+            latitude: geoEnd[0].latitude,
+            longitude: geoEnd[0].longitude,
         })
     );
 
@@ -83,9 +59,31 @@ export async function createPathController(request: Request, response: Response)
             name: name,
             start: startCoordinateSaved,
             end: endCoordinateSaved,
+            checkpoints: await getCheckpoints(checkpoints),
         })
     );
 
     response.status(200).end();
 }
 
+async function getCheckpoints(checkpoints: string[]): Promise<Checkpoint[]>
+{
+    const checkpointRepo = getManager().getRepository(Checkpoint);
+
+    let checkpointsSaved: Checkpoint[] = [];
+    for (const checkpoint of checkpoints) {
+        const geoCheckpoint = await geocoder.geocode({
+            address: checkpoint,
+            country: 'France',
+        });
+        const newCheckpoint = await checkpointRepo.create({
+            name: checkpoint,
+            latitude: geoCheckpoint[0].latitude,
+            longitude: geoCheckpoint[0].longitude,
+        });
+        await checkpointRepo.save(newCheckpoint);
+        checkpointsSaved.push(newCheckpoint);
+    }
+
+    return checkpointsSaved;
+}

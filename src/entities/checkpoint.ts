@@ -1,5 +1,4 @@
-import {Column, Entity, OneToOne, PrimaryGeneratedColumn, JoinColumn, ManyToOne} from "typeorm";
-import {CheckpointCoordinate} from "./checkpointcoordinate.entity";
+import {Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
 import {Path} from "./path.entity";
 
 @Entity()
@@ -11,10 +10,13 @@ export class Checkpoint
     @Column()
     name: string;
 
-    @ManyToOne(() => Path, path => path.checkpoints)
-    path: Path;
+    @Column()
+    latitude: string;
 
-    @OneToOne(() => CheckpointCoordinate)
+    @Column()
+    longitude: string;
+
+    @ManyToOne(() => Path, path => path.checkpoints)
     @JoinColumn()
-    coordinate: CheckpointCoordinate;
+    path: Path;
 }
