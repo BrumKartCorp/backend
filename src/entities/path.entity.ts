@@ -1,14 +1,12 @@
 import {
-    Entity,
-    Column, PrimaryGeneratedColumn, OneToOne, JoinColumn, OneToMany
+    Entity, Column, PrimaryGeneratedColumn, OneToOne, JoinColumn, OneToMany
 } from "typeorm";
 import {StartCoordinate} from "./startcoodinate.entity";
 import {EndCoordinate} from "./endcoodinate.entity";
 import {Checkpoint} from "./checkpoint";
 
 @Entity()
-export class Path
-{
+export class Path {
     @PrimaryGeneratedColumn("uuid")
     id: string;
 
@@ -27,6 +25,10 @@ export class Path
     @JoinColumn()
     end: EndCoordinate;
 
-    @OneToMany(() => Checkpoint, checkpoint => checkpoint.path)
+    @OneToMany(() => Checkpoint, checkpoint => checkpoint.path, {
+        eager: true,
+        onDelete: 'CASCADE',
+    })
+    @JoinColumn()
     checkpoints: Checkpoint[];
 }
