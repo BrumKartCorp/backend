@@ -12,7 +12,7 @@ export async function getAccountMailController(request: Request, response: Respo
     {
         response.status(400).end();
     }
-    const account = await accountRepo.find({
+    const account = await accountRepo.findOne({
         where: [
             { mail: mail },
         ],

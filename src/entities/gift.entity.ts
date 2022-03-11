@@ -1,5 +1,5 @@
 import {
-    Entity, Column, PrimaryGeneratedColumn, ManyToOne
+    Entity, Column, PrimaryGeneratedColumn, ManyToOne, ManyToMany, OneToMany
 } from "typeorm";
 import {Account} from "./account.entity";
 
@@ -12,6 +12,6 @@ export class Gift
     @Column()
     name: string;
 
-    @ManyToOne(() => Account, account => account.gifts)
+    @ManyToMany(() => Account, account => account.gifts)
     accounts: Account[];
 }

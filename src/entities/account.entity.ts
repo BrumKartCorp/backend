@@ -1,6 +1,6 @@
 import {
     Entity,
-    Column, PrimaryGeneratedColumn, OneToMany,
+    Column, PrimaryGeneratedColumn, OneToMany, JoinColumn, JoinTable, ManyToMany,
 } from "typeorm";
 import {Gift} from "./gift.entity";
 
@@ -26,6 +26,19 @@ export class Account
     })
     coins: number;
 
-    @OneToMany(() => Gift, gift => gift.accounts)
+    @ManyToMany(() => Gift, gift => gift.accounts, {
+        eager: true,
+    })
+    @JoinTable({
+        name: "account_gifts",
+        joinColumn: {
+            name: "account",
+            referencedColumnName: "id",
+        },
+        inverseJoinColumn: {
+            name: "gift",
+            referencedColumnName: "id",
+        },
+    })
     gifts: Gift[];
 }
